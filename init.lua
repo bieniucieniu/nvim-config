@@ -264,6 +264,7 @@ rtp:prepend(lazypath)
 require('lazy').setup({
   { import = 'base' },
   require 'plugins.lazygit',
+  require 'plugins.supermaven',
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',

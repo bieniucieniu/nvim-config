@@ -32,9 +32,7 @@ return { -- Autocompletion
   ---@type blink.cmp.Config
   opts = {
     keymap = {
-      ['<S-j>'] = { 'select_next', 'fallback' },
-      ['<S-k>'] = { 'select_prev', 'fallback' },
-      ['<S-l>'] = { 'accept', 'fallback' },
+      ['<C-l>'] = { 'accept', 'fallback' },
       ['<C-S-Space>'] = { 'show', 'show_documentation', 'hide_documentation' },
       -- 'default' (recommended) for mappings similar to built-in completions
       --   <c-y> to accept ([y]es) the completion.
