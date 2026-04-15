@@ -114,13 +114,11 @@ return {
       end,
     })
 
-    -- Enable the following language servers
-    --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
-    --  See `:help lsp-config` for information about keys and how to configure
+    -- list of servers managed by mason
     ---@type table<string, vim.lsp.Config>
-    local servers = {
+    local managed_servers = {
       -- clangd = {},
-      -- gopls = {},
+      gopls = {},
       -- pyright = {},
       -- rust_analyzer = {},
       --
@@ -129,7 +127,6 @@ return {
       --
       -- But for many setups, the LSP (`ts_ls`) will work just fine
       ts_ls = {},
-
       stylua = {}, -- Used to format Lua code
 
       -- Special Lua Config, as recommended by neovim help docs
@@ -162,6 +159,12 @@ return {
       },
     }
 
+    -- list of servers managed by host
+    ---@type table<string, vim.lsp.Config>
+    local host_servers = {
+      nil_ls = {},
+    }
+
     -- Ensure the servers and tools above are installed
     --
     -- To check the current status of installed tools and/or manually install
@@ -169,13 +172,16 @@ return {
     --    :Mason
     --
     -- You can press `g?` for help in this menu.
-    local ensure_installed = vim.tbl_keys(servers or {})
+
+    local ensure_installed = vim.tbl_keys(managed_servers or {})
+
     vim.list_extend(ensure_installed, {
       -- You can add other tools here that you want Mason to install
     })
 
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
+    local servers = vim.tbl_extend('force', managed_servers, host_servers)
     for name, server in pairs(servers) do
       vim.lsp.config(name, server)
       vim.lsp.enable(name)
