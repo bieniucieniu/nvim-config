@@ -18,7 +18,7 @@ return { -- Useful plugin to show you pending keybinds.
   ---@diagnostic disable-next-line: missing-fields
   opts = {
     -- delay between pressing a key and opening which-key (milliseconds)
-    delay = 0,
+    delay = 400,
     icons = { mappings = vim.g.have_nerd_font },
 
     -- Document existing key chains
