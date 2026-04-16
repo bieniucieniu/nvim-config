@@ -1,3 +1,5 @@
+---@module 'lazy'
+---@type LazySpec
 return { -- You can easily change to a different colorscheme.
   -- Change the name of the colorscheme plugin below, and then
   -- change the command in the config to whatever the name of that colorscheme is.
@@ -11,6 +13,8 @@ return { -- You can easily change to a different colorscheme.
       styles = {
         comments = { italic = false }, -- Disable italics in comments
       },
+      terminal_colors = true,
+      transparent = true,
     }
 
     -- Load the colorscheme here.
