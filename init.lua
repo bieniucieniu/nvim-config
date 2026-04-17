@@ -164,6 +164,7 @@ vim.o.scrolloff = 10
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
+vim.o.colorcolumn = '80'
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -188,11 +189,11 @@ vim.diagnostic.config {
 }
 vim.keymap.set('n', '<leader>cd', vim.diagnostic.open_float, { desc = 'Show diagnostic' })
 -- Diagnostics
-vim.keymap.set('n', '<leader>[e', function() vim.diagnostic.jump { count = 1, severity = vim.diagnostic.severity.ERROR } end, { desc = 'Next error' })
-vim.keymap.set('n', '<leader>]e', function() vim.diagnostic.jump { count = -1, severity = vim.diagnostic.severity.ERROR } end, { desc = 'Prev error' })
+vim.keymap.set('n', '[e', function() vim.diagnostic.jump { count = 1, severity = vim.diagnostic.severity.ERROR } end, { desc = 'Next error' })
+vim.keymap.set('n', ']e', function() vim.diagnostic.jump { count = -1, severity = vim.diagnostic.severity.ERROR } end, { desc = 'Prev error' })
 
-vim.keymap.set('n', '<leader>[w', function() vim.diagnostic.jump { count = 1, severity = vim.diagnostic.severity.WARN } end, { desc = 'Next warning' })
-vim.keymap.set('n', '<leader>]w', function() vim.diagnostic.jump { count = -1, severity = vim.diagnostic.severity.WARN } end, { desc = 'Prev warning' })
+vim.keymap.set('n', '[w', function() vim.diagnostic.jump { count = 1, severity = vim.diagnostic.severity.WARN } end, { desc = 'Next warning' })
+vim.keymap.set('n', ']w', function() vim.diagnostic.jump { count = -1, severity = vim.diagnostic.severity.WARN } end, { desc = 'Prev warning' })
 
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
