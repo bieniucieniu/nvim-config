@@ -89,6 +89,7 @@ end
 
 local function get_formatter(bufnr)
   local format = detect_js_formatter(bufnr)
+  vim.notify(vim.inspect(format))
   if format == 'biome' then return { 'biome-check' } end
   if format == 'vite-plus' then return { 'vp-format' } end
   if format == 'oxc' then return { 'oxc-format' } end
@@ -135,7 +136,8 @@ return { -- Autoformat
       -- javascript = { "prettierd", "prettier", stop_after_first = true },
       javascript = get_formatter,
       javascriptreact = get_formatter,
-
+      json = get_formatter,
+      jsonc = get_formatter,
       typescript = get_formatter,
       typescriptreact = get_formatter,
     },
