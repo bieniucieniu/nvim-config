@@ -89,7 +89,6 @@ end
 
 local function get_formatter(bufnr)
   local format = detect_js_formatter(bufnr)
-  vim.notify(vim.inspect(format))
   if format == 'biome' then return { 'biome-check' } end
   if format == 'vite-plus' then return { 'vp-format' } end
   if format == 'oxc' then return { 'oxc-format' } end
