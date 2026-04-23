@@ -129,6 +129,7 @@ return {
       ts_ls = {},
       stylua = {}, -- Used to format Lua code
       jsonls = {},
+      yamlls = {},
       -- tailwindcss
       tailwindcss = {},
 
