@@ -119,6 +119,7 @@ return {
     local managed_servers = {
       -- clangd = {},
       gopls = {},
+      zls = {},
       -- pyright = {},
       -- rust_analyzer = {},
       --
@@ -126,10 +127,11 @@ return {
       --    https://github.com/pmizio/typescript-tools.nvim
       --
       -- But for many setups, the LSP (`ts_ls`) will work just fine
-      ts_ls = {},
+      vtsls = {},
       stylua = {}, -- Used to format Lua code
       jsonls = {},
       yamlls = {},
+      kotlin_lsp = {},
       -- tailwindcss
       tailwindcss = {},
 

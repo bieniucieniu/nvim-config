@@ -20,6 +20,7 @@ set NERDTree
 
 nnoremap <leader><space> :action GotoFile<CR>
 nnoremap <leader>e :action ActivateProjectToolWindow<CR>
+nnoremap \ :action ActivateProjectToolWindow<CR>
 
 nnoremap <leader>cr :action RenameElement<CR>
 nnoremap <leader>bd :action CloseContent<CR>
