@@ -169,6 +169,18 @@ return {
     ---@type table<string, vim.lsp.Config>
     local host_servers = {
       nil_ls = {},
+      sourcekit = {
+        on_attach = function(_, bufnr)
+          -- Helper function to make setting description-backed keymaps cleaner
+          local map = function(mode, keys, func, desc) vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = 'LSP: ' .. desc }) end
+
+          -- Your custom Swift keymaps with Which-Key descriptions
+          map('n', 'K', vim.lsp.buf.hover, 'Hover Documentation')
+          map('n', 'gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+          map('n', 'gr', vim.lsp.buf.references, '[G]oto [R]eferences')
+          map('n', '<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+        end,
+      },
     }
 
     -- Ensure the servers and tools above are installed
