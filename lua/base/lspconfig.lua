@@ -164,11 +164,39 @@ return {
       },
     }
 
+    ---@return boolean
+    local function sourcekit_available()
+      if vim.uv.os_uname().sysname ~= 'Darwin' then
+        return false
+      end
+      if not vim.uv.fs_stat('/Applications/Xcode.app') then
+        return false
+      end
+      vim.fn.system { 'xcrun', '--find', 'sourcekit-lsp' }
+      return vim.v.shell_error == 0
+    end
+
+    local sourcekit_enabled = sourcekit_available()
+
     -- list of servers managed by host
     ---@type table<string, vim.lsp.Config>
     local host_servers = {
       nil_ls = {},
     }
+
+    if sourcekit_enabled then
+      host_servers.sourcekit = {
+        cmd = { 'xcrun', 'sourcekit-lsp' },
+        filetypes = { 'swift', 'objective-c', 'objective-cpp', 'c', 'cpp' },
+        root_markers = {
+          'buildServer.json',
+          'Package.swift',
+          '*.xcodeproj',
+          '*.xcworkspace',
+          '.git',
+        },
+      }
+    end
 
     -- Ensure the servers and tools above are installed
     --
@@ -180,9 +208,9 @@ return {
 
     local ensure_installed = vim.tbl_keys(managed_servers or {})
 
-    vim.list_extend(ensure_installed, {
-      -- You can add other tools here that you want Mason to install
-    })
+    if sourcekit_enabled then
+      table.insert(ensure_installed, 'xcode-build-server')
+    end
 
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
