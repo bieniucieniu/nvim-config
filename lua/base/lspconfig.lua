@@ -131,7 +131,6 @@ return {
       stylua = {}, -- Used to format Lua code
       jsonls = {},
       yamlls = {},
-      kotlin_lsp = {},
       -- tailwindcss
       tailwindcss = {},
 
