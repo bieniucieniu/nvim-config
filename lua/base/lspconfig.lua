@@ -166,12 +166,8 @@ return {
 
     ---@return boolean
     local function sourcekit_available()
-      if vim.uv.os_uname().sysname ~= 'Darwin' then
-        return false
-      end
-      if not vim.uv.fs_stat('/Applications/Xcode.app') then
-        return false
-      end
+      if vim.uv.os_uname().sysname ~= 'Darwin' then return false end
+      if not vim.uv.fs_stat '/Applications/Xcode.app' then return false end
       vim.fn.system { 'xcrun', '--find', 'sourcekit-lsp' }
       return vim.v.shell_error == 0
     end
@@ -196,6 +192,7 @@ return {
           '.git',
         },
       }
+      managed_servers['xcode-build-server'] = {}
     end
 
     -- Ensure the servers and tools above are installed
@@ -207,10 +204,6 @@ return {
     -- You can press `g?` for help in this menu.
 
     local ensure_installed = vim.tbl_keys(managed_servers or {})
-
-    if sourcekit_enabled then
-      table.insert(ensure_installed, 'xcode-build-server')
-    end
 
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
