@@ -10,6 +10,28 @@ local formatter_configs = {
   'biome.jsonc',
   'oxc.config.json',
   '.oxc.json',
+  '.oxfmtrc.json',
+  '.prettierrc',
+  '.prettierrc.json',
+  '.prettierrc.yml',
+  '.prettierrc.yaml',
+  '.prettierrc.js',
+  '.prettierrc.mjs',
+  '.prettierrc.cjs',
+  'prettier.config.js',
+  'prettier.config.mjs',
+  'prettier.config.cjs',
+}
+local oxc_config_names = {
+  'oxc.config.json',
+  '.oxc.json',
+  '.oxfmtrc.json',
+}
+local biome_config_names = {
+  'biome.json',
+  'biome.jsonc',
+}
+local prettier_config_names = {
   '.prettierrc',
   '.prettierrc.json',
   '.prettierrc.yml',
@@ -46,28 +68,17 @@ end
 local function classify(root)
   if not root then return nil end
 
-  for _, name in ipairs { 'biome.json', 'biome.jsonc' } do
+  for _, name in ipairs(biome_config_names) do
     if has(root, name) then return { 'biome' } end
   end
 
-  for _, name in ipairs { 'oxc.config.json', '.oxc.json' } do
+  for _, name in ipairs(oxc_config_names) do
     if has(root, name) then return { 'oxc' } end
   end
 
   if has_vite_plus(root) then return { 'vite-plus' } end
 
-  for _, name in ipairs {
-    '.prettierrc',
-    '.prettierrc.json',
-    '.prettierrc.yml',
-    '.prettierrc.yaml',
-    '.prettierrc.js',
-    '.prettierrc.mjs',
-    '.prettierrc.cjs',
-    'prettier.config.js',
-    'prettier.config.mjs',
-    'prettier.config.cjs',
-  } do
+  for _, name in ipairs(prettier_config_names) do
     if has(root, name) then return { 'prettier' } end
   end
 
@@ -91,9 +102,9 @@ local function get_formatter(bufnr)
   local format = detect_js_formatter(bufnr)
   if format == 'biome' then return { 'biome-check' } end
   if format == 'vite-plus' then return { 'vp-format' } end
-  if format == 'oxc' then return { 'oxc-format' } end
+  if format == 'oxc' then return { 'oxfmt' } end
   if format == 'prettier' then return { 'prettierd' } end
-  return { 'biome-check' }
+  return { 'oxfmt' }
 end
 
 return { -- Autoformat
