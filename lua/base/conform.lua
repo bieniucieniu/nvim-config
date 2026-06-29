@@ -5,23 +5,6 @@ local vite_config_names = {
   'vite.config.mts',
 }
 
-local formatter_configs = {
-  'biome.json',
-  'biome.jsonc',
-  'oxc.config.json',
-  '.oxc.json',
-  '.oxfmtrc.json',
-  '.prettierrc',
-  '.prettierrc.json',
-  '.prettierrc.yml',
-  '.prettierrc.yaml',
-  '.prettierrc.js',
-  '.prettierrc.mjs',
-  '.prettierrc.cjs',
-  'prettier.config.js',
-  'prettier.config.mjs',
-  'prettier.config.cjs',
-}
 local oxc_config_names = {
   'oxc.config.json',
   '.oxc.json',
@@ -44,7 +27,11 @@ local prettier_config_names = {
   'prettier.config.cjs',
 }
 
-local all_config_files = vim.list_extend(vim.deepcopy(formatter_configs), vite_config_names)
+local all_config_files = {}
+vim.list_extend(all_config_files, vite_config_names)
+vim.list_extend(all_config_files, oxc_config_names)
+vim.list_extend(all_config_files, biome_config_names)
+vim.list_extend(all_config_files, prettier_config_names)
 
 local function has(dir, filename) return vim.uv.fs_stat(dir .. '/' .. filename) ~= nil end
 
