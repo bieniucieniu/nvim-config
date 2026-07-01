@@ -133,6 +133,8 @@ return {
       yamlls = {},
       -- tailwindcss
       tailwindcss = {},
+      ['laravel-ls'] = {},
+      phpactor = {},
 
       -- Special Lua Config, as recommended by neovim help docs
       lua_ls = {

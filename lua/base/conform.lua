@@ -33,10 +33,17 @@ vim.list_extend(all_config_files, oxc_config_names)
 vim.list_extend(all_config_files, biome_config_names)
 vim.list_extend(all_config_files, prettier_config_names)
 
+--- @param dir string
+--- @param filename string
+--- @return boolean
 local function has(dir, filename) return vim.uv.fs_stat(dir .. '/' .. filename) ~= nil end
 
+--- @param from string
+--- @return string | nil
 local function find_root(from) return vim.fs.root(from, all_config_files) end
 
+--- @param root string
+--- @return boolean
 local function has_vite_plus(root)
   for _, name in ipairs(vite_config_names) do
     local path = root .. '/' .. name
@@ -52,26 +59,30 @@ local function has_vite_plus(root)
   return false
 end
 
+--- @param root string | nil
+--- @return string | nil
 local function classify(root)
   if not root then return nil end
 
   for _, name in ipairs(biome_config_names) do
-    if has(root, name) then return { 'biome' } end
+    if has(root, name) then return 'biome' end
   end
 
   for _, name in ipairs(oxc_config_names) do
-    if has(root, name) then return { 'oxc' } end
+    if has(root, name) then return 'oxc' end
   end
 
-  if has_vite_plus(root) then return { 'vite-plus' } end
+  if has_vite_plus(root) then return 'vite-plus' end
 
   for _, name in ipairs(prettier_config_names) do
-    if has(root, name) then return { 'prettier' } end
+    if has(root, name) then return 'prettier' end
   end
 
   return nil
 end
 
+--- @param bufnr integer
+--- @return string
 local function detect_js_formatter(bufnr)
   -- local cwd_root = find_root(vim.uv.cwd())
   -- local result = classify(cwd_root)
@@ -82,16 +93,25 @@ local function detect_js_formatter(bufnr)
   local result2 = classify(buf_root)
   if result2 then return result2 end
 
-  return { 'biome' }
+  return 'biome'
 end
 
+--- @param bufnr integer
+--- @return table<number, string>
 local function get_formatter(bufnr)
   local format = detect_js_formatter(bufnr)
-  if format == 'biome' then return { 'biome-check' } end
-  if format == 'vite-plus' then return { 'vp-format' } end
-  if format == 'oxc' then return { 'oxfmt' } end
-  if format == 'prettier' then return { 'prettierd' } end
-  return { 'oxfmt' }
+
+  if format == 'biome' then
+    return { 'biome-check' }
+  elseif format == 'vite-plus' then
+    return { 'vp-format' }
+  elseif format == 'oxc' then
+    return { 'oxfmt' }
+  elseif format == 'prettier' then
+    return { 'prettierd' }
+  else
+    return { 'oxfmt' }
+  end
 end
 
 return { -- Autoformat
