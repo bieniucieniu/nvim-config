@@ -131,6 +131,8 @@ return {
       stylua = {}, -- Used to format Lua code
       jsonls = {},
       yamlls = {},
+      oxfmt = {},
+      oxlint = {},
       -- tailwindcss
       tailwindcss = {},
       ['laravel-ls'] = {},

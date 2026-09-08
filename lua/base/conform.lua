@@ -5,11 +5,17 @@ local vite_config_names = {
   'vite.config.mts',
 }
 
-local oxc_config_names = {
-  'oxc.config.json',
-  '.oxc.json',
+local oxfmt_config_names = {
   '.oxfmtrc.json',
+  'oxfmt.config.ts',
+  'oxfmt.config.mts',
 }
+local oxlint_config_names = {
+  '.oxlintrc.json',
+  'oxlint.config.ts',
+  'oxlint.config.mts',
+}
+
 local biome_config_names = {
   'biome.json',
   'biome.jsonc',
@@ -29,7 +35,7 @@ local prettier_config_names = {
 
 local all_config_files = {}
 vim.list_extend(all_config_files, vite_config_names)
-vim.list_extend(all_config_files, oxc_config_names)
+vim.list_extend(all_config_files, oxfmt_config_names)
 vim.list_extend(all_config_files, biome_config_names)
 vim.list_extend(all_config_files, prettier_config_names)
 
@@ -68,8 +74,8 @@ local function classify(root)
     if has(root, name) then return 'biome' end
   end
 
-  for _, name in ipairs(oxc_config_names) do
-    if has(root, name) then return 'oxc' end
+  for _, name in ipairs(oxfmt_config_names) do
+    if has(root, name) then return 'ox' end
   end
 
   if has_vite_plus(root) then return 'vite-plus' end
@@ -105,8 +111,8 @@ local function get_formatter(bufnr)
     return { 'biome-check' }
   elseif format == 'vite-plus' then
     return { 'vp-format' }
-  elseif format == 'oxc' then
-    return { 'oxfmt' }
+  elseif format == 'ox' then
+    return { 'oxfmt', 'oxlint' }
   elseif format == 'prettier' then
     return { 'prettierd' }
   else
