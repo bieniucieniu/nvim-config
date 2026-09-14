@@ -88,7 +88,7 @@ local function classify(root)
 end
 
 --- @param bufnr integer
---- @return string
+--- @return string | nil
 local function detect_js_formatter(bufnr)
   -- local cwd_root = find_root(vim.uv.cwd())
   -- local result = classify(cwd_root)
@@ -99,7 +99,7 @@ local function detect_js_formatter(bufnr)
   local result2 = classify(buf_root)
   if result2 then return result2 end
 
-  return 'biome'
+  return nil
 end
 
 --- @param bufnr integer
@@ -112,12 +112,12 @@ local function get_formatter(bufnr)
   elseif format == 'vite-plus' then
     return { 'vp-format' }
   elseif format == 'ox' then
-    return { 'oxfmt', 'oxlint' }
+    return { 'oxfmt' }
   elseif format == 'prettier' then
     return { 'prettierd' }
-  else
-    return { 'oxfmt' }
   end
+
+  return { 'oxfmt' }
 end
 
 return { -- Autoformat
