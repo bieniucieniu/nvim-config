@@ -119,7 +119,7 @@ return {
     local managed_servers = {
       -- clangd = {},
       gopls = {},
-      zls = {},
+      -- zls = {},
       -- pyright = {},
       -- rust_analyzer = {},
       --
@@ -135,9 +135,9 @@ return {
       oxlint = {},
       -- tailwindcss
       tailwindcss = {},
-      ['laravel-ls'] = {},
-      phpactor = {},
-
+      -- ['laravel-ls'] = {},
+      -- phpactor = {},
+      jdtls = {},
       -- Special Lua Config, as recommended by neovim help docs
       lua_ls = {
         on_init = function(client)
